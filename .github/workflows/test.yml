@@ -31,14 +31,16 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm ci --safe-chain-logging=verbose
+        run: npm ci
 
       - name: Run tests
         run: |
           # Ensure tinyproxy is fully started
           sleep 2
+          # Verify that the proxy is working
           curl -x http://127.0.0.1:8888 https://httpbin.org/ip
-          npm test --safe-chain-logging=verbose
+          # Run tests with proxy environment variables
+          npm test
         env:
           HTTP_PROXY: http://127.0.0.1:8888
           HTTPS_PROXY: http://127.0.0.1:8888
