@@ -1,7 +1,7 @@
 async function fetchData() {
   const axios = require("axios");
 
-  const response = await axios.get("https://postman-echo.com/get");
+  const response = await axios.get("https://example.com/");
 
   return response.status;
 }

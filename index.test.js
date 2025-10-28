@@ -10,7 +10,7 @@ describe("HTTP request test", () => {
   test("with nock", async () => {
     const nock = require("nock");
     nock.disableNetConnect();
-    nock("https://postman-echo.com").get("/get").reply(200);
+    nock("https://example.com").get("/").reply(200);
 
     const result = await fetchData();
 

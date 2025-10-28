@@ -38,7 +38,7 @@ jobs:
           # Ensure tinyproxy is fully started
           sleep 2
           # Verify that the proxy is working
-          curl -x http://127.0.0.1:8888 https://httpbin.org/ip
+          curl -x http://127.0.0.1:8888 https://example.com/
           # Run tests with proxy environment variables
           npm test
         env:
