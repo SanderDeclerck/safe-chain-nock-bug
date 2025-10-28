@@ -18,7 +18,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y tinyproxy
-          sudo tinyproxy -c /dev/null -d
+          echo "Port 8888" | sudo tee /tmp/tinyproxy.conf
+          echo "Listen 127.0.0.1" | sudo tee -a /tmp/tinyproxy.conf
+          echo "Timeout 600" | sudo tee -a /tmp/tinyproxy.conf
+          sudo tinyproxy -c /tmp/tinyproxy.conf -d &
+          sleep 2
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
