@@ -3,7 +3,7 @@ const nock = require("nock");
 const { fetchData } = require(".");
 
 axios.defaults.adapter = "http";
-nock.disableNetConnect();
+// nock.disableNetConnect();
 
 describe("HTTP request test", () => {
   afterEach(() => {
