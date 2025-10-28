@@ -1,5 +1,7 @@
-const axios = require("axios");
+async function fetchData() {
+  const axios = require("axios");
+  const response = await axios.get("https://httpbin.org/status/200");
+  return response.status;
+}
 
-axios.get("https://httpbin.org/status/200").then((response) => {
-  console.log(response.status);
-});
+module.exports = { fetchData };

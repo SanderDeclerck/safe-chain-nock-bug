@@ -1,5 +1,6 @@
 const axios = require("axios");
 const nock = require("nock");
+const { fetchData } = require(".");
 
 axios.defaults.adapter = "http";
 nock.disableNetConnect();
@@ -13,9 +14,9 @@ describe("HTTP request test", () => {
     // Mock the HTTP request
     const scope = nock("https://httpbin.org").get("/status/200").reply(200);
 
-    const response = await axios.get("https://httpbin.org/status/200");
+    const result = await fetchData();
 
     expect(scope.isDone()).toBe(true);
-    expect(response.status).toBe(200);
+    expect(result).toBe(200);
   });
 });
