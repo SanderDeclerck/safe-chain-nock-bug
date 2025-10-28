@@ -40,10 +40,6 @@ jobs:
 
       - name: Run tests
         run: |
-          echo "Verifying tinyproxy is running..."
-          ps aux | grep tinyproxy | grep -v grep || (echo "ERROR: tinyproxy not running!" && exit 1)
-          curl -x http://127.0.0.1:8888 http://httpbin.org/ip || (echo "ERROR: proxy not responding!" && exit 1)
-          echo "Proxy verified, running tests..."
           npm test --safe-chain-logging=verbose
         env:
           HTTP_PROXY: http://127.0.0.1:8888
