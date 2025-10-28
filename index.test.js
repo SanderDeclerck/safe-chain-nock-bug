@@ -12,6 +12,8 @@ describe("HTTP request test", () => {
 
   test("should make a GET request to httpbin and return status 200", async () => {
     // Mock the HTTP request
+    console.log(process.env.HTTPS_PROXY);
+
     const scope = nock("https://httpbin.org").get("/status/200").reply(200);
 
     const result = await fetchData();
