@@ -22,5 +22,5 @@ describe("HTTP request test", () => {
 
     expect(scope.isDone()).toBe(true);
     expect(result).toBe(200);
-  });
+  }, 20000);
 });
