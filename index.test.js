@@ -5,8 +5,8 @@ const { fetchData } = require(".");
 axios.defaults.adapter = "http";
 nock.disableNetConnect();
 
-delete process.env.HTTP_PROXY;
-delete process.env.HTTPS_PROXY;
+// delete process.env.HTTP_PROXY;
+// delete process.env.HTTPS_PROXY;
 
 describe("HTTP request test", () => {
   afterEach(() => {
