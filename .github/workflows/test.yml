@@ -36,7 +36,8 @@ jobs:
       - name: Run tests
         run: |
           # Ensure tinyproxy is fully started
-          sleep 2 
+          sleep 2
+          curl -x http://127.0.0.1:8888 https://httpbin.org/ip
           npm test --safe-chain-logging=verbose
         env:
           HTTP_PROXY: http://127.0.0.1:8888
