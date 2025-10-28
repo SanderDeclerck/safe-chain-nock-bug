@@ -14,19 +14,33 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup tinyproxy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tinyproxy
+          sudo tinyproxy -c /dev/null -d
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: "npm"
 
-      - name: Setup safe-chain
-        run: |
-          npm i -g ./aikidosec-safe-chain-1.0.0.tgz
-          safe-chain setup-ci
+      # - name: Setup safe-chain
+      #   run: |
+      #     npm i -g ./aikidosec-safe-chain-1.0.0.tgz
+      #     safe-chain setup-ci
 
       - name: Install dependencies
         run: npm ci --safe-chain-logging=verbose
 
       - name: Run tests
-        run: npm test --safe-chain-logging=verbose
+        run: |
+          echo "Verifying tinyproxy is running..."
+          ps aux | grep tinyproxy | grep -v grep || (echo "ERROR: tinyproxy not running!" && exit 1)
+          curl -x http://127.0.0.1:8888 http://httpbin.org/ip || (echo "ERROR: proxy not responding!" && exit 1)
+          echo "Proxy verified, running tests..."
+          npm test --safe-chain-logging=verbose
+        env:
+          HTTP_PROXY: http://127.0.0.1:8888
+          HTTPS_PROXY: http://127.0.0.1:8888
